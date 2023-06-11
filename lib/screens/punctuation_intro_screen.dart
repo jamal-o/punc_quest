@@ -66,7 +66,7 @@ class PunctuationIntroScreen extends StatelessWidget {
             ElevatedButton(
               onPressed: () => Provider.of<AppRouter>(context, listen: false)
                   .router
-                  .goNamed(lessonsScreen),
+                  .goNamed(chaptersScreen),
               child: const Text('Learning Pages'),
             ),
           ],

@@ -1,12 +1,32 @@
 import 'package:flutter/material.dart';
+import 'package:punc_quest/models/lesson_data.dart';
 import 'package:punc_quest/models/lesson_model.dart';
 
-class PunctuationRuleScreen extends StatelessWidget {
-  const PunctuationRuleScreen({required this.lessonData, super.key});
+class LessonScreen extends StatelessWidget {
+  const LessonScreen({required this.lessonId, super.key});
 
-  final Lesson lessonData;
+  final String lessonId;
+  //GOTO
+
   @override
   Widget build(BuildContext context) {
+    final Map<String, Object> rawLessonData = LessonData().fetch(lessonId);
+
+    List<Map<String, String>> rawExamples =
+        rawLessonData['examples'] as List<Map<String, String>>;
+
+    var examples = rawExamples.map<Example>((example) {
+      return Example(
+        prompt: example['prompt'] as String,
+        answer: example['answer'] as String,
+      );
+    });
+    Lesson lessonData = Lesson(
+      examples: examples.toList(),
+      title: rawLessonData['title'] as String,
+      explanation: rawLessonData['explanation'] as String,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lesson Mode'),
@@ -48,13 +68,16 @@ class PunctuationRuleScreen extends StatelessWidget {
                 style: TextStyle(fontSize: 18.0),
               ),
             ),
-            ListView.separated(
-              itemBuilder: (context, index) =>
-                  const InteractiveExample(lessonData.examples[index]),
-              separatorBuilder: (context, index) => const SizedBox(
-                height: 20,
+            Container(
+              height: 400,
+              child: ListView.separated(
+                itemBuilder: (context, index) =>
+                    InteractiveExample(lessonData.examples[index]),
+                separatorBuilder: (context, index) => const SizedBox(
+                  height: 20,
+                ),
+                itemCount: lessonData.examples.length,
               ),
-              itemCount: lessonData.examples.length,
             ),
             // Add visual explanation widgets here
           ],
@@ -65,23 +88,37 @@ class PunctuationRuleScreen extends StatelessWidget {
 }
 
 class InteractiveExample extends StatefulWidget {
-  InteractiveExample({required this.example, super.key});
+  InteractiveExample(this.example, {super.key});
   Example example;
   @override
   State<InteractiveExample> createState() => _InteractiveExampleState();
 }
 
 class _InteractiveExampleState extends State<InteractiveExample> {
+  TextEditingController textFieldController = TextEditingController();
+  late Example _example;
+  @override
+  initState() {
+    _example = widget.example;
+    textFieldController.value = TextEditingValue(text: _example.prompt);
+    super.initState();
+  }
+
+  checkAnswer() {}
+
   @override
   Widget build(BuildContext context) {
     return Container(
       child: Card(
         child: Column(
           children: [
-            TextField(),
+            TextField(
+              controller: textFieldController,
+              autocorrect: false,
+            ),
             ElevatedButton(
-              onPressed: onPressed,
-              child: child,
+              onPressed: checkAnswer,
+              child: const Text('Check'),
             ),
           ],
         ),
