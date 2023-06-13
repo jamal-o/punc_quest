@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:punc_quest/constants.dart';
 import 'package:punc_quest/models/lesson_data.dart';
 import 'package:punc_quest/models/lesson_model.dart';
+import 'package:punc_quest/navigation_and_state/navigation.dart';
 
 class LessonScreen extends StatelessWidget {
   const LessonScreen({required this.lessonId, super.key});
@@ -30,6 +33,14 @@ class LessonScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text('Lesson Mode'),
+        actions: [
+          IconButton(
+            onPressed: () => Provider.of<AppRouter>(context, listen: false)
+                .router
+                .goNamed(chaptersScreen),
+            icon: const Icon(Icons.arrow_back),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -104,7 +115,31 @@ class _InteractiveExampleState extends State<InteractiveExample> {
     super.initState();
   }
 
-  checkAnswer() {}
+  checkAnswer() {
+    bool answerIsCorrect = isStringMatchingIgnoringWhitespace(
+      textFieldController.text,
+      _example.answer,
+    );
+
+    if (answerIsCorrect) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('The answer is correct')),
+      );
+      return;
+    }
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('The answer is incorrect')),
+    );
+  }
+
+  bool isStringMatchingIgnoringWhitespace(String str1, String str2) {
+    // Remove whitespace characters from both strings
+    String cleanStr1 = str1.replaceAll(RegExp(r'\s+'), '');
+    String cleanStr2 = str2.replaceAll(RegExp(r'\s+'), '');
+
+    // Compare the cleaned strings
+    return cleanStr1 == cleanStr2;
+  }
 
   @override
   Widget build(BuildContext context) {

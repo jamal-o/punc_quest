@@ -1,19 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:provider/provider.dart';
 
 import 'package:punc_quest/constants.dart';
 
 import 'package:punc_quest/screens/screens.dart';
 
 class AppRouter extends ChangeNotifier {
-  final router = GoRouter(
+  final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
     //TODO: add refresh Listnebale
-    // initialLocation: '/$onboardingScreen',
+    // initialLocation: '/',
     initialLocation: '/$lessonsScreen/comma1',
     routes: [
       GoRoute(
-        path: '/$onboardingScreen',
+        path: '/',
         name: onboardingScreen,
         builder: (context, state) => const OnboardingScreen(),
       ),
@@ -40,5 +41,26 @@ class AppRouter extends ChangeNotifier {
         builder: (context, state) => const ChaptersScreen(),
       ),
     ],
+    errorBuilder: (context, state) {
+      switch (state.error) {
+        default:
+          return Scaffold(
+            body: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text('Looks like you got lost'),
+                TextButton(
+                  onPressed: () {
+                    Provider.of<AppRouter>(context, listen: false)
+                        .router
+                        .go('/');
+                  },
+                  child: const Text('Home'),
+                ),
+              ],
+            ),
+          );
+      }
+    },
   );
 }

@@ -28,10 +28,10 @@ class ChaptersScreen extends StatelessWidget {
             const SizedBox(height: 20.0),
             ChapterTile(
               chapterTitle: 'Chapter 1: Period and Comma',
-              onTap: (context) {
-                // Handle navigation to Chapter 1 page
-                testLesson(context);
-              },
+              // onTap: (context) {
+              //   // Handle navigation to Chapter 1 page
+              //   testLesson(context);
+              // },
             ),
             ChapterTile(
               chapterTitle: 'Chapter 2: Question Mark and Exclamation Mark',
@@ -88,6 +88,6 @@ testLesson(context) {
   // var _lesson =
   //     Lesson(examples: _examples, explanation: 'explanation', title: 'Test');
   Provider.of<AppRouter>(context, listen: false).router.go(
-        '/$lessonsScreen/:comma1',
+        '/$lessonsScreen/comma1',
       );
 }
