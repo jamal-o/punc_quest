@@ -14,7 +14,7 @@ class PunctuationIntroScreen extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
           Text(
-            'Period (.)',
+            'Periods (.)',
             style: TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -46,15 +46,60 @@ class PunctuationIntroScreen extends StatelessWidget {
             ),
             const SizedBox(height: 20.0),
             SizedBox(
-              height: 120,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
+              height: 400,
+
+              child: ListView.builder(
+                scrollDirection: Axis.vertical,
                 shrinkWrap: true,
-                children: [
-                  period,
-                  period,
-                ],
+                itemCount: basic.length,
+                itemBuilder: (context, index) {
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    color: Colors.blue,
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              basic[index]['title']!.toUpperCase(),
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Purpose:${basic[index]['purpose']!}',
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Example: ${basic[index]['example']!}',
+                            ),
+                            SizedBox(
+                              height: 8,
+                            ),
+                            Text(
+                              'Usage: ${basic[index]['usage']}',
+                            ),
+                          ]),
+                    ),
+                  );
+                },
               ),
+              // child: ListView(
+              //   scrollDirection: Axis.horizontal,
+              //   shrinkWrap: true,
+              //   children: [
+              //     period,
+              //     period,
+              //   ],
+              // ),
             ),
             const SizedBox(height: 20.0),
             const Text(
@@ -76,3 +121,73 @@ class PunctuationIntroScreen extends StatelessWidget {
     );
   }
 }
+
+var basic = [
+  {
+    'title': 'period',
+    "purpose": "The period signifies the end of a sentence.",
+    "example": "I love to read.",
+    "usage": "Use it to convey a complete thought or statement."
+  },
+  {
+    'title': "comma",
+    "purpose":
+        "The comma separates words, phrases, or clauses within a sentence.",
+    "example": "She walked slowly, enjoying the beautiful scenery.",
+    "usage":
+        "Use it to indicate pauses, list items, or provide additional information."
+  },
+  {
+    'title': "questionMark",
+    "purpose": "The question mark denotes a direct question.",
+    "example": "Where is the nearest bookstore?",
+    "usage": "Use it at the end of an interrogative sentence."
+  },
+  {
+    'title': "exclamationMark",
+    "purpose":
+        "The exclamation mark expresses strong emotions or exclamatory statements.",
+    "example": "What an incredible performance!",
+    "usage": "Use it to convey excitement, surprise, or urgency."
+  },
+  {
+    'title': "quotationMarks",
+    "purpose": "Quotation marks enclose direct speech or a quote.",
+    "example": 'He said, "I\'ll be there soon."',
+    "usage": "Use them to indicate dialogue or to cite someone's exact words."
+  },
+  {
+    'title': "colon",
+    "purpose": "The colon introduces a list, explanation, or example.",
+    "example":
+        "Please bring the following items: a pen, notebook, and calculator.",
+    "usage": "Use it to signal a forthcoming explanation or list."
+  },
+  {
+    'title': "semicolon",
+    "purpose":
+        "The semicolon connects two closely related independent clauses.",
+    "example": "I love to write; it's my passion.",
+    "usage": "Use it instead of a period to link related thoughts."
+  },
+  {
+    'title': "dash",
+    "purpose":
+        "The dash indicates a pause or emphasizes a phrase within a sentence.",
+    "example": "She was hesitant - uncertain of her decision.",
+    "usage":
+        "Use it to provide emphasis, interruption, or create a dramatic effect."
+  },
+  {
+    'title': "parentheses",
+    "purpose": "Parentheses enclose additional information or clarification.",
+    "example": "He loves reading (especially fantasy novels).",
+    "usage": "Use them to include non-essential information or explanations."
+  },
+  {
+    'title': "apostrophe",
+    "purpose": "The apostrophe indicates possession or contraction.",
+    "example": "Sara's book or can't (short for cannot)",
+    "usage": "Use it to indicate possession or contraction."
+  }
+];

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:punc_quest/constants.dart';
-import 'package:punc_quest/models/lesson_model.dart';
 import 'package:punc_quest/navigation_and_state/navigation.dart';
 
 class ChaptersScreen extends StatelessWidget {

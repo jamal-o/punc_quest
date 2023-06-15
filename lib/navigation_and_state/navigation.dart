@@ -7,20 +7,11 @@ import 'package:punc_quest/constants.dart';
 import 'package:punc_quest/screens/screens.dart';
 
 class AppRouter extends ChangeNotifier {
-  static Drawer nav = Drawer(
-    child: ListView.builder(
-      itemCount: chapters.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(chapters[index].chapterTitle),
-        );
-      },
-    ),
-  );
-
+  static var nav = NavDrawer();
   final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    //TODO: add refresh Listnebale
+    //TODO: add refresh Listenable
+
     // initialLocation: '/',
     initialLocation: '/$lessonsScreen/period',
     routes: [
@@ -56,7 +47,7 @@ class AppRouter extends ChangeNotifier {
       switch (state.error) {
         default:
           return Scaffold(
-            drawer: nav,
+            drawer: Drawer(),
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -108,3 +99,26 @@ const chapters = <Chapter>[
     path: '',
   ),
 ];
+
+class NavDrawer extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Drawer(
+        child: ListView(
+      children: [
+        ListTile(
+          title: Text('Introduction'),
+          onTap: () => Provider.of<AppRouter>(context, listen: false)
+              .router
+              .goNamed(punctuationMarksScreen),
+        ),
+        ListTile(
+          title: Text('Lessons'),
+          onTap: () => Provider.of<AppRouter>(context, listen: false)
+              .router
+              .goNamed(lessonsScreen),
+        ),
+      ],
+    ));
+  }
+}
