@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:punc_quest/constants.dart';
@@ -31,6 +33,7 @@ class LessonScreen extends StatelessWidget {
     );
 
     return Scaffold(
+      drawer: AppRouter.nav,
       appBar: AppBar(
         title: const Text('Lesson Mode'),
         actions: [
@@ -143,7 +146,7 @@ class _InteractiveExampleState extends State<InteractiveExample> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
+    var initialTextField = Container(
       child: Card(
         child: Column(
           children: [
@@ -159,5 +162,26 @@ class _InteractiveExampleState extends State<InteractiveExample> {
         ),
       ),
     );
+    int count = 0;
+    var highlightedTextField = Container(
+      child: Card(
+        child: Column(
+          children: [
+            RichText(
+              text: TextSpan(children: [
+                for (String val in _example.answer.split(' '))
+                  TextSpan(text: val, style: TextStyle(color: Colors.grey)),
+              ]),
+            ),
+            ElevatedButton(
+              onPressed: checkAnswer,
+              child: const Text('Check'),
+            ),
+          ],
+        ),
+      ),
+    );
+    // return initialTextField;
+    return highlightedTextField;
   }
 }

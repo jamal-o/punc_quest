@@ -9,6 +9,7 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppRouter.nav,
       backgroundColor: Colors.white,
       body: Padding(
         padding: const EdgeInsets.all(20.0),

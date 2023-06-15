@@ -7,11 +7,22 @@ import 'package:punc_quest/constants.dart';
 import 'package:punc_quest/screens/screens.dart';
 
 class AppRouter extends ChangeNotifier {
+  static Drawer nav = Drawer(
+    child: ListView.builder(
+      itemCount: chapters.length,
+      itemBuilder: (context, index) {
+        return ListTile(
+          title: Text(chapters[index].chapterTitle),
+        );
+      },
+    ),
+  );
+
   final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
     //TODO: add refresh Listnebale
     // initialLocation: '/',
-    initialLocation: '/$lessonsScreen/comma1',
+    initialLocation: '/$lessonsScreen/period',
     routes: [
       GoRoute(
         path: '/',
@@ -45,6 +56,7 @@ class AppRouter extends ChangeNotifier {
       switch (state.error) {
         default:
           return Scaffold(
+            drawer: nav,
             body: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -64,3 +76,35 @@ class AppRouter extends ChangeNotifier {
     },
   );
 }
+
+class Chapter {
+  const Chapter({
+    required this.chapterTitle,
+    this.description = '',
+    required this.path,
+  });
+  final String chapterTitle, description, path;
+}
+
+const chapters = <Chapter>[
+  Chapter(
+    chapterTitle: 'Chapter 1: Period and Comma',
+    path: '',
+  ),
+  Chapter(
+    chapterTitle: 'Chapter 2: Question Mark and Exclamation Mark',
+    path: '',
+  ),
+  Chapter(
+    chapterTitle: 'Chapter 3: Quotation Marks and Colon',
+    path: '',
+  ),
+  Chapter(
+    chapterTitle: 'Chapter 4: Semicolon and Dash',
+    path: '',
+  ),
+  Chapter(
+    chapterTitle: 'Chapter 5: Parentheses and Apostrophe',
+    path: '',
+  ),
+];

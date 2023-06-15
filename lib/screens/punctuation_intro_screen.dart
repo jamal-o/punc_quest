@@ -32,6 +32,7 @@ class PunctuationIntroScreen extends StatelessWidget {
       ),
     );
     return Scaffold(
+      drawer: AppRouter.nav,
       appBar: AppBar(
         title: const Text('Discover the Power of Punctuation!'),
       ),

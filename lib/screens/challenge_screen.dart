@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:punc_quest/navigation_and_state/navigation.dart';
 
 class ChallengeScreen extends StatefulWidget {
   const ChallengeScreen({super.key});
@@ -26,6 +27,7 @@ class ChallengeScreenState extends State<ChallengeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppRouter.nav,
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Quest Mode'),

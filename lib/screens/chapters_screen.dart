@@ -10,6 +10,7 @@ class ChaptersScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      drawer: AppRouter.nav,
       appBar: AppBar(
         title: const Text('Chapters'),
       ),
