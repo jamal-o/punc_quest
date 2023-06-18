@@ -33,12 +33,13 @@ class LessonScreen extends StatelessWidget {
         title: Text(lessonId),
       ),
       body: Padding(
-        padding: const EdgeInsets.all(12.0),
+        padding: const EdgeInsets.all(30.0),
         child: Flex(
           direction: Axis.vertical,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
                 color: Colors.grey,
@@ -78,7 +79,9 @@ class LessonScreen extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return Card(
                     color: Colors.white10,
-                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    margin: EdgeInsets.symmetric(
+                      vertical: 8,
+                    ),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
@@ -180,14 +183,14 @@ class _InteractiveExampleState extends State<InteractiveExample> {
       textFieldController.text,
       _example.answer,
     );
-
+    ScaffoldMessenger.of(context).clearSnackBars();
     if (answerIsCorrect) {
-      ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('The answer is correct')),
       );
       return;
     }
+
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(content: Text('The answer is incorrect')),
     );
@@ -207,6 +210,9 @@ class _InteractiveExampleState extends State<InteractiveExample> {
     var initialTextField = Column(
       children: [
         TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          ),
           controller: textFieldController,
           autocorrect: false,
           maxLines: 4,

@@ -7,6 +7,12 @@ import 'package:punc_quest/constants.dart';
 import 'package:punc_quest/screens/screens.dart';
 
 class AppRouter extends ChangeNotifier {
+  // AppRouter(context) {
+  //   bool isHandset = MediaQuery.of(context).size.width < 600;
+  //   VisualDensity density;
+
+  //   density = isHandset ? VisualDensity.standard : VisualDensity.compact;
+  // }
   static var nav = NavDrawer();
   final GoRouter router = GoRouter(
     debugLogDiagnostics: true,

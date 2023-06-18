@@ -71,17 +71,23 @@ class ChapterTile extends StatelessWidget {
     return MenuBar(children: [
       SubmenuButton(
         child: Text(chapterTitle),
-        menuChildren: [
-          MenuItemButton(
-            style: ButtonStyle(elevation: MaterialStateProperty.all(0)),
-            child: Text('Period'),
+        menuChildren: List<Widget>.generate(lessonIds!.length, (index) {
+          return MenuItemButton(
+            style: ButtonStyle(
+                elevation: MaterialStateProperty.resolveWith((states) => 0.0)),
+            child: Text(lessonIds![index]),
             onPressed: () {
-              Provider.of<AppRouter>(context, listen: false)
-                  .router
-                  .go('/$lessonsScreen/${lessonIds![0]}');
+              // if (lessonIds == ['comingSoon']) {
+              //   // Provider.of<AppRouter>(context, listen: false)
+              //   //     .router
+              //   //     .go('/$lessonsScreen/error');
+              // }
+              // Provider.of<AppRouter>(context, listen: false)
+              //     .router
+              //     .go('/$lessonsScreen/${lessonIds![index]}');
             },
-          ),
-        ],
+          );
+        }),
         // menuChildren: List.generate(lessonIds?.length ?? 0, (index) {
         //   return MenuItemButton(
         //     child: Text('Period'),

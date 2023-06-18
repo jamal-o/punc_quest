@@ -19,6 +19,7 @@ class PuctQuestApp extends StatefulWidget {
 class _PuctQuestAppState extends State<PuctQuestApp> {
   late final _routerProvider = AppRouter();
   late final _router = _routerProvider.router;
+
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -40,4 +41,14 @@ class _PuctQuestAppState extends State<PuctQuestApp> {
       ),
     );
   }
+}
+
+enum ScreenSize { Small, Normal, Large, ExtraLarge }
+
+ScreenSize getSize(BuildContext context) {
+  double deviceWidth = MediaQuery.of(context).size.shortestSide;
+  if (deviceWidth > 900) return ScreenSize.ExtraLarge;
+  if (deviceWidth > 600) return ScreenSize.Large;
+  if (deviceWidth > 300) return ScreenSize.Normal;
+  return ScreenSize.Small;
 }
