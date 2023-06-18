@@ -17,82 +17,139 @@ class LessonScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final Map<String, Object> rawLessonData = LessonData().fetch(lessonId);
 
-    List<Map<String, String>> rawExamples =
-        rawLessonData['examples'] as List<Map<String, String>>;
-
-    var examples = rawExamples.map<Example>((example) {
-      return Example(
-        prompt: example['prompt'] as String,
-        answer: example['answer'] as String,
-      );
-    });
-    Lesson lessonData = Lesson(
-      examples: examples.toList(),
-      title: rawLessonData['title'] as String,
-      explanation: rawLessonData['explanation'] as String,
-    );
+    final String lessonIntro = rawLessonData['introduction'] as String;
+    final List<Map<String, String>> lessonRules =
+        rawLessonData['rules'] as List<Map<String, String>>;
 
     return Scaffold(
       drawer: AppRouter.nav,
       appBar: AppBar(
-        title: const Text('Lesson Mode'),
-        actions: [
-          IconButton(
-            onPressed: () => Provider.of<AppRouter>(context, listen: false)
-                .router
-                .goNamed(chaptersScreen),
-            icon: const Icon(Icons.arrow_back),
-          ),
-        ],
+        leading: IconButton(
+          onPressed: () => Provider.of<AppRouter>(context, listen: false)
+              .router
+              .goNamed(chaptersScreen),
+          icon: const Icon(Icons.arrow_back),
+        ),
+        title: Text(lessonId),
       ),
-      body: SingleChildScrollView(
-        child: Column(
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: Flex(
+          direction: Axis.vertical,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(8),
+                color: Colors.grey,
+              ),
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                lessonData.title,
+                lessonIntro,
                 style: const TextStyle(
-                  fontSize: 24.0,
+                  fontSize: 18,
+                  fontWeight: FontWeight.normal,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Container(
+              // padding: EdgeInsets.symmetric(vertical: 8),
+              alignment: Alignment.center,
+              child: Text(
+                'Rules',
+                style: TextStyle(
                   fontWeight: FontWeight.bold,
+                  fontSize: 16,
                 ),
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Explanation',
-                style: TextStyle(fontSize: 18.0),
+            Divider(
+              height: 10,
+              thickness: 1,
+              indent: 10,
+              endIndent: 10,
+            ),
+            Expanded(
+              flex: 1,
+              child: ListView.builder(
+                itemBuilder: (context, index) {
+                  return Card(
+                    color: Colors.white10,
+                    margin: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(12.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              lessonRules[index]['title']!,
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  fontFamily: 'Roboto'),
+                            ),
+                          ),
+                          Text(lessonRules[index]['explanation']!),
+                          Align(
+                            alignment: Alignment.center,
+                            child: Text(
+                              'Example:',
+                              textAlign: TextAlign.justify,
+                            ),
+                          ),
+                          InteractiveExample(
+                            Example(
+                              prompt: lessonRules[index]['prompt']!,
+                              answer: lessonRules[index]['answer']!,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+                itemCount: lessonRules.length,
               ),
             ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: Card(
-                child: Text(
-                  lessonData.explanation,
-                  style: const TextStyle(fontSize: 18.0),
-                ),
-              ),
-            ),
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: const Text(
-                'Examples',
-                style: TextStyle(fontSize: 18.0),
-              ),
-            ),
-            Container(
-              height: 400,
-              child: ListView.separated(
-                itemBuilder: (context, index) =>
-                    InteractiveExample(lessonData.examples[index]),
-                separatorBuilder: (context, index) => const SizedBox(
-                  height: 20,
-                ),
-                itemCount: lessonData.examples.length,
-              ),
-            ),
+
+            // Container(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: const Text(
+            //     'Explanation',
+            //     style: TextStyle(fontSize: 18.0),
+            //   ),
+            // ),
+            // Container(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: Card(
+            //     child: Text(
+            //       lessonData.explanation,
+            //       style: const TextStyle(fontSize: 18.0),
+            //     ),
+            //   ),
+            // ),
+            // Container(
+            //   padding: const EdgeInsets.all(16.0),
+            //   child: const Text(
+            //     'Example',
+            //     style: TextStyle(fontSize: 18.0),
+            //   ),
+            // ),
+            // SizedBox(
+            //   height: 400,
+            //   child: ListView.separated(
+            //     itemBuilder: (context, index) =>
+            //         InteractiveExample(lessonData.examples[index]),
+            //     separatorBuilder: (context, index) => const SizedBox(
+            //       height: 20,
+            //     ),
+            //     itemCount: lessonData.examples.length,
+            //   ),
+            // ),
             // Add visual explanation widgets here
           ],
         ),
@@ -125,6 +182,7 @@ class _InteractiveExampleState extends State<InteractiveExample> {
     );
 
     if (answerIsCorrect) {
+      ScaffoldMessenger.of(context).clearSnackBars();
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text('The answer is correct')),
       );
@@ -146,21 +204,19 @@ class _InteractiveExampleState extends State<InteractiveExample> {
 
   @override
   Widget build(BuildContext context) {
-    var initialTextField = Container(
-      child: Card(
-        child: Column(
-          children: [
-            TextField(
-              controller: textFieldController,
-              autocorrect: false,
-            ),
-            ElevatedButton(
-              onPressed: checkAnswer,
-              child: const Text('Check'),
-            ),
-          ],
+    var initialTextField = Column(
+      children: [
+        TextField(
+          controller: textFieldController,
+          autocorrect: false,
+          maxLines: 4,
+          minLines: 1,
         ),
-      ),
+        ElevatedButton(
+          onPressed: checkAnswer,
+          child: const Text('Check Answer'),
+        ),
+      ],
     );
     int count = 0;
     var highlightedTextField = Container(
@@ -170,7 +226,8 @@ class _InteractiveExampleState extends State<InteractiveExample> {
             RichText(
               text: TextSpan(children: [
                 for (String val in _example.answer.split(' '))
-                  TextSpan(text: val, style: TextStyle(color: Colors.grey)),
+                  TextSpan(
+                      text: val, style: const TextStyle(color: Colors.grey)),
               ]),
             ),
             ElevatedButton(
@@ -181,7 +238,17 @@ class _InteractiveExampleState extends State<InteractiveExample> {
         ),
       ),
     );
-    // return initialTextField;
-    return highlightedTextField;
+    return initialTextField;
+    // return highlightedTextField;
+
+    // return Card(
+    //   child: Column(children: [
+    //     initialTextField,
+    //     const SizedBox(
+    //       height: 12,
+    //     ),
+    //     highlightedTextField,
+    //   ]),
+    // );
   }
 }

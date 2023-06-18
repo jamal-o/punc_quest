@@ -13,7 +13,8 @@ class AppRouter extends ChangeNotifier {
     //TODO: add refresh Listenable
 
     // initialLocation: '/',
-    initialLocation: '/$lessonsScreen/period',
+    initialLocation: '/$lessonsScreen/Period',
+    // initialLocation: '/$chaptersScreen',
     routes: [
       GoRoute(
         path: '/',
@@ -48,19 +49,21 @@ class AppRouter extends ChangeNotifier {
         default:
           return Scaffold(
             drawer: Drawer(),
-            body: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Text('Looks like you got lost'),
-                TextButton(
-                  onPressed: () {
-                    Provider.of<AppRouter>(context, listen: false)
-                        .router
-                        .go('/');
-                  },
-                  child: const Text('Home'),
-                ),
-              ],
+            body: Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Text('Looks like you got lost'),
+                  TextButton(
+                    onPressed: () {
+                      Provider.of<AppRouter>(context, listen: false)
+                          .router
+                          .go('/');
+                    },
+                    child: const Text('Home'),
+                  ),
+                ],
+              ),
             ),
           );
       }

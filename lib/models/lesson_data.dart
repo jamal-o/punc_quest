@@ -4,55 +4,41 @@ class LessonData {
   }
 
   var lessonData = {
-    'period': {
-      'examples': [
+    'Period': {
+      'introduction': '''
+The period is a punctuation mark that serves two main purposes in writing.
+It indicates the end of a sentence and is used in declarative and imperative sentences.
+Additionally, periods are used in abbreviations and to form ellipses.
+''',
+      "rules": [
         {
-          'prompt': 'the deep blue sea',
-          'answer': 'the deep, blue sea',
+          "title": "End a Sentence",
+          "explanation":
+              "The primary function of a period is to signal the end of a sentence.",
+          "answer": 'English is not an easy language.',
+          "prompt": 'English is not an easy language'
         },
         {
-          'prompt': 'orange blue yellow',
-          'answer': 'orange, blue, yellow',
-        }
-      ],
-      'title': 'First rule',
-      'explanation': 'The rule states that ...',
-    },
-    'Commas with lists': {
-      'examples': [
-        {
-          'prompt': 'Julie loves ice cream books and kittens.',
-          'answer': [
-            'Julie loves ice cream, books, and kittens.',
-            'Julie loves ice cream, books and kittens.'
-          ],
+          "title": "Indicate an Omission",
+          "explanation":
+              "The secondary purpose of a period is to indicate that some information has been removed, such as letters in a word.",
+          "answer":
+              'They spent the day cleaning their living room, kitchen, bedroom, etc',
+          "prompt":
+              'They spent the day cleaning their living room, kitchen, bedroom, etc..',
         },
         {
-          'prompt': 'orange blue yellow',
-          'answer': 'orange, blue, yellow',
-        }
-      ],
-      'title': 'First rule',
-      'explanation': "When you have a list of items with more"
-          "than two elements, it's recommended to use commas to separate them."
-          "This helps avoid confusion and ensures that each item in the list is"
-          "distinct. Remember, you can also choose to include the optional"
-          "serial comma before the word 'and' to make the meaning even"
-          "clearer. Whether it's a list of nouns, verbs, adjectives, or"
-          "clauses, using commas appropriately will make your writing more organized and easier to comprehend.",
-    },
-    'comma2': {
-      'examples': [
-        {
-          'prompt': 'Thuggery sinister thuggery',
-          'answer': 'Thuggery, sinister thuggery',
-        }
-      ],
-      'title': 'Second rule',
-      'explanation': 'The rule states that...',
-    },
+          "title": "Other Uses",
+          "explanation": "Periods are used in abbreviations and initials.",
+          "answer": 'Dr. John Smith attended the conference.',
+          "prompt": 'Dr John Smith attended the conference'
+        },
+      ]
+    }
   };
 }
+
+
 
 
 // 'comma1': {

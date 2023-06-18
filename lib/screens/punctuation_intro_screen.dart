@@ -8,7 +8,7 @@ class PunctuationIntroScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var period = Card(
+    var Period = Card(
       color: Colors.blue,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -38,16 +38,16 @@ class PunctuationIntroScreen extends StatelessWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(20.0),
-        child: Column(
+        child: Flex(
+          direction: Axis.vertical,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Text(
               'Welcome to the world of punctuation marks! Understanding these essential symbols will elevate your writing to new heights of clarity and impact. Let\'s explore the basic punctuation marks and their purposes:',
             ),
             const SizedBox(height: 20.0),
-            SizedBox(
-              height: 400,
-
+            Expanded(
+              flex: 1,
               child: ListView.builder(
                 scrollDirection: Axis.vertical,
                 shrinkWrap: true,
@@ -79,27 +79,21 @@ class PunctuationIntroScreen extends StatelessWidget {
                               height: 8,
                             ),
                             Text(
-                              'Example: ${basic[index]['example']!}',
+                              'Usage: ${basic[index]['usage']}',
                             ),
-                            SizedBox(
-                              height: 8,
+                            Divider(
+                              height: 15,
+                              thickness: 1,
+                              color: Colors.black,
                             ),
                             Text(
-                              'Usage: ${basic[index]['usage']}',
+                              'Example: ${basic[index]['example']!}',
                             ),
                           ]),
                     ),
                   );
                 },
               ),
-              // child: ListView(
-              //   scrollDirection: Axis.horizontal,
-              //   shrinkWrap: true,
-              //   children: [
-              //     period,
-              //     period,
-              //   ],
-              // ),
             ),
             const SizedBox(height: 20.0),
             const Text(
@@ -124,7 +118,7 @@ class PunctuationIntroScreen extends StatelessWidget {
 
 var basic = [
   {
-    'title': 'period',
+    'title': 'Period',
     "purpose": "The period signifies the end of a sentence.",
     "example": "I love to read.",
     "usage": "Use it to convey a complete thought or statement."
@@ -138,20 +132,20 @@ var basic = [
         "Use it to indicate pauses, list items, or provide additional information."
   },
   {
-    'title': "questionMark",
+    'title': "question Mark",
     "purpose": "The question mark denotes a direct question.",
     "example": "Where is the nearest bookstore?",
     "usage": "Use it at the end of an interrogative sentence."
   },
   {
-    'title': "exclamationMark",
+    'title': "exclamation Mark",
     "purpose":
         "The exclamation mark expresses strong emotions or exclamatory statements.",
     "example": "What an incredible performance!",
     "usage": "Use it to convey excitement, surprise, or urgency."
   },
   {
-    'title': "quotationMarks",
+    'title': "quotation Marks",
     "purpose": "Quotation marks enclose direct speech or a quote.",
     "example": 'He said, "I\'ll be there soon."',
     "usage": "Use them to indicate dialogue or to cite someone's exact words."

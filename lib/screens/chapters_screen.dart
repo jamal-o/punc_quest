@@ -28,6 +28,9 @@ class ChaptersScreen extends StatelessWidget {
             const SizedBox(height: 20.0),
             ChapterTile(
               chapterTitle: 'Chapter 1: Period and Comma',
+              lessonIds: const [
+                'Period',
+              ],
               // onTap: (context) {
               //   // Handle navigation to Chapter 1 page
               //   testLesson(context);
@@ -54,23 +57,51 @@ class ChaptersScreen extends StatelessWidget {
 
 class ChapterTile extends StatelessWidget {
   final String chapterTitle;
-  void Function(dynamic)? onTap;
+  late final List<String>? lessonIds;
 
   ChapterTile({
     super.key,
     required this.chapterTitle,
-    this.onTap,
+    this.lessonIds = const ['comingSoon'],
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      title: Text(chapterTitle),
-      //TODO: Implement showing drawer of lessons under section [onTap]
-      onTap: () {
-        testLesson(context);
-      },
-    );
+    // this.lessonIds = lessonIds?? ['coming soon'];
+    return MenuBar(children: [
+      SubmenuButton(
+        child: Text(chapterTitle),
+        menuChildren: [
+          MenuItemButton(
+            style: ButtonStyle(elevation: MaterialStateProperty.all(0)),
+            child: Text('Period'),
+            onPressed: () {
+              Provider.of<AppRouter>(context, listen: false)
+                  .router
+                  .go('/$lessonsScreen/${lessonIds![0]}');
+            },
+          ),
+        ],
+        // menuChildren: List.generate(lessonIds?.length ?? 0, (index) {
+        //   return MenuItemButton(
+        //     child: Text('Period'),
+        //     onPressed: () {
+        //       Provider.of<AppRouter>(context)
+        //           .router
+        //           .go('$lessonsScreen/${lessonIds![index]}');
+        //     },
+        //   );
+        // }),
+      ),
+    ]);
+
+    // return ListTile(
+    //   title: Text(chapterTitle),
+    //   //TODO: Implement showing drawer of lessons under section [onTap]
+    //   onTap: () {
+    //     testLesson(context);
+    //   },
+    // );
   }
 }
 
@@ -87,7 +118,8 @@ testLesson(context) {
   // ];
   // var _lesson =
   //     Lesson(examples: _examples, explanation: 'explanation', title: 'Test');
-  Provider.of<AppRouter>(context, listen: false).router.go(
-        '/$lessonsScreen/comma1',
-      );
+
+  // Provider.of<AppRouter>(context, listen: false).router.go(
+  //       '/$lessonsScreen/comma1',
+  //     );
 }
