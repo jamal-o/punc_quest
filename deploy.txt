@@ -1,0 +1,4 @@
+in the root folder run these commands to update the web app
+
+flutter build web
+firebase deploy --only hosting

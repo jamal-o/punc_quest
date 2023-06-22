@@ -125,7 +125,7 @@ class NavDrawer extends StatelessWidget {
           title: Text('Lessons'),
           onTap: () => Provider.of<AppRouter>(context, listen: false)
               .router
-              .goNamed(lessonsScreen),
+              .goNamed(chaptersScreen),
         ),
       ],
     ));
