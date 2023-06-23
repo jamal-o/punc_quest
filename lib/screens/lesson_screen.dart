@@ -7,15 +7,38 @@ import 'package:punc_quest/models/lesson_data.dart';
 import 'package:punc_quest/models/lesson_model.dart';
 import 'package:punc_quest/navigation_and_state/navigation.dart';
 
-class LessonScreen extends StatelessWidget {
+class LessonScreen extends StatefulWidget {
   const LessonScreen({required this.lessonId, super.key});
 
   final String lessonId;
-  //GOTO
 
   @override
+  State<LessonScreen> createState() => _LessonScreenState();
+}
+
+class _LessonScreenState extends State<LessonScreen> {
+  //GOTO
+  @override
   Widget build(BuildContext context) {
-    final Map<String, Object> rawLessonData = LessonData().fetch(lessonId);
+    var fetchLesson = LessonData().fetch(widget.lessonId);
+    if (fetchLesson == null) {
+      //Provider.of<AppRouter>(context).router.go('/');
+      return Scaffold(
+        appBar: AppBar(
+          title: Text('Coming soon ...'),
+        ),
+        body: Center(
+          child: Text(
+            'Coming soon...',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+      );
+    }
+    final Map<String, Object> rawLessonData = fetchLesson;
 
     final String lessonIntro = rawLessonData['introduction'] as String;
     final List<Map<String, String>> lessonRules =
@@ -30,7 +53,7 @@ class LessonScreen extends StatelessWidget {
               .goNamed(chaptersScreen),
           icon: const Icon(Icons.arrow_back),
         ),
-        title: Text(lessonId),
+        title: Text(widget.lessonId),
       ),
       body: Padding(
         padding: const EdgeInsets.all(30.0),
@@ -42,7 +65,7 @@ class LessonScreen extends StatelessWidget {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.grey,
+                color: Colors.grey.withOpacity(0.4),
               ),
               padding: const EdgeInsets.all(16.0),
               child: Text(
@@ -78,7 +101,7 @@ class LessonScreen extends StatelessWidget {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return Card(
-                    color: Colors.white10,
+                    color: Colors.grey.withOpacity(0.2),
                     margin: EdgeInsets.symmetric(
                       vertical: 8,
                     ),
@@ -96,7 +119,10 @@ class LessonScreen extends StatelessWidget {
                                   fontFamily: 'Roboto'),
                             ),
                           ),
-                          Text(lessonRules[index]['explanation']!),
+                          Text(
+                            lessonRules[index]['explanation']!
+                                .replaceAll(RegExp('r/n'), ''),
+                          ),
                           Align(
                             alignment: Alignment.center,
                             child: Text(
@@ -171,6 +197,8 @@ class InteractiveExample extends StatefulWidget {
 class _InteractiveExampleState extends State<InteractiveExample> {
   TextEditingController textFieldController = TextEditingController();
   late Example _example;
+  int answerTries = 0;
+  bool showAnswer = false;
   @override
   initState() {
     _example = widget.example;
@@ -179,21 +207,30 @@ class _InteractiveExampleState extends State<InteractiveExample> {
   }
 
   checkAnswer() {
+    if (answerTries > 2) {
+      setState(() {
+        showAnswer = true;
+      });
+
+      return;
+    }
     bool answerIsCorrect = isStringMatchingIgnoringWhitespace(
       textFieldController.text,
       _example.answer,
     );
     ScaffoldMessenger.of(context).clearSnackBars();
+    FocusScope.of(context).unfocus();
     if (answerIsCorrect) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('The answer is correct')),
+        const SnackBar(content: Text('Your answer is correct🎉🎉🎉')),
       );
       return;
     }
 
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('The answer is incorrect')),
+      const SnackBar(content: Text('Your answer is incorrect 👀')),
     );
+    answerTries++;
   }
 
   bool isStringMatchingIgnoringWhitespace(String str1, String str2) {
@@ -213,6 +250,8 @@ class _InteractiveExampleState extends State<InteractiveExample> {
           decoration: InputDecoration(
             border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
           ),
+          textInputAction: TextInputAction.done,
+          keyboardType: TextInputType.text,
           controller: textFieldController,
           autocorrect: false,
           maxLines: 4,
@@ -224,7 +263,7 @@ class _InteractiveExampleState extends State<InteractiveExample> {
         ),
       ],
     );
-    int count = 0;
+
     var highlightedTextField = Container(
       child: Card(
         child: Column(
@@ -244,7 +283,30 @@ class _InteractiveExampleState extends State<InteractiveExample> {
         ),
       ),
     );
-    return initialTextField;
+
+    if (!showAnswer) {
+      return initialTextField;
+    }
+
+    return Column(
+      children: [
+        TextField(
+          decoration: InputDecoration(
+            border: OutlineInputBorder(borderRadius: BorderRadius.circular(5)),
+          ),
+          controller: textFieldController,
+          readOnly: true,
+          autocorrect: false,
+          maxLines: 4,
+          minLines: 1,
+        ),
+        Text(
+          'Answer: ${widget.example.answer}',
+          style: TextStyle(
+              fontWeight: FontWeight.bold, fontStyle: FontStyle.italic),
+        ),
+      ],
+    );
     // return highlightedTextField;
 
     // return Card(

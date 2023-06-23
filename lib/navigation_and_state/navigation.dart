@@ -16,6 +16,7 @@ class AppRouter extends ChangeNotifier {
   static var nav = NavDrawer();
   final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
+
     //TODO: add refresh Listenable
 
     // initialLocation: '/',

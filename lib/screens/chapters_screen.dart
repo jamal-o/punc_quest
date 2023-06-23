@@ -30,6 +30,7 @@ class ChaptersScreen extends StatelessWidget {
               chapterTitle: 'Chapter 1: Period and Comma',
               lessonIds: const [
                 'Period',
+                'Comma',
               ],
               // onTap: (context) {
               //   // Handle navigation to Chapter 1 page
@@ -38,15 +39,31 @@ class ChaptersScreen extends StatelessWidget {
             ),
             ChapterTile(
               chapterTitle: 'Chapter 2: Question Mark and Exclamation Mark',
+              lessonIds: const [
+                'Question Mark',
+                'Exclamation Mark',
+              ],
             ),
             ChapterTile(
               chapterTitle: 'Chapter 3: Quotation Marks and Colon',
+              lessonIds: [
+                'Quotation Marks',
+                'Colon',
+              ],
             ),
             ChapterTile(
               chapterTitle: 'Chapter 4: Semicolon and Dash',
+              lessonIds: [
+                'Semicolon',
+                'Dash',
+              ],
             ),
             ChapterTile(
               chapterTitle: 'Chapter 5: Parentheses and Apostrophe',
+              lessonIds: [
+                'Parentheses',
+                'Apostrophe',
+              ],
             ),
           ],
         ),
@@ -77,14 +94,14 @@ class ChapterTile extends StatelessWidget {
                 elevation: MaterialStateProperty.resolveWith((states) => 0.0)),
             child: Text(lessonIds![index]),
             onPressed: () {
-              // if (lessonIds == ['comingSoon']) {
-              //   // Provider.of<AppRouter>(context, listen: false)
-              //   //     .router
-              //   //     .go('/$lessonsScreen/error');
-              // }
-              // Provider.of<AppRouter>(context, listen: false)
-              //     .router
-              //     .go('/$lessonsScreen/${lessonIds![index]}');
+              if (lessonIds == ['comingSoon']) {
+                Provider.of<AppRouter>(context, listen: false)
+                    .router
+                    .go('/$lessonsScreen/error');
+              }
+              Provider.of<AppRouter>(context, listen: false)
+                  .router
+                  .go('/$lessonsScreen/${lessonIds![index]}');
             },
           );
         }),

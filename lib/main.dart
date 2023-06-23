@@ -9,7 +9,7 @@ void main() {
   runApp(const PuctQuestApp());
 }
 
-class PuctQuestApp extends StatefulWidget {
+class PuctQuestApp extends MaterialApp {
   const PuctQuestApp({super.key});
 
   @override
@@ -31,7 +31,6 @@ class _PuctQuestAppState extends State<PuctQuestApp> {
       child: Consumer<AppRouter>(
         builder: (context, value, child) {
           return MaterialApp.router(
-            theme: ThemeData(primaryColor: Colors.deepPurple),
             debugShowCheckedModeBanner: false,
             title: 'PuctQuest',
             routerDelegate: _router.routerDelegate,
