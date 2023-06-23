@@ -9,7 +9,7 @@ class PunctuationIntroScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     var Period = Card(
-      color: Colors.blue,
+      color: Theme.of(context).primaryColor,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: const [
@@ -57,7 +57,8 @@ class PunctuationIntroScreen extends StatelessWidget {
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    color: Colors.blue,
+                    // color: Theme.of(context).primaryColor.withOpacity(0.3),
+                    color: Colors.grey.withOpacity(0.2),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(

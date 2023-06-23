@@ -65,7 +65,7 @@ class _LessonScreenState extends State<LessonScreen> {
               alignment: Alignment.center,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(8),
-                color: Colors.grey.withOpacity(0.4),
+                color: Colors.grey.withOpacity(0.2),
               ),
               padding: const EdgeInsets.all(16.0),
               child: Text(

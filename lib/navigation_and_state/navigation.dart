@@ -19,8 +19,8 @@ class AppRouter extends ChangeNotifier {
 
     //TODO: add refresh Listenable
 
-    // initialLocation: '/',
-    initialLocation: '/$lessonsScreen/Period',
+    initialLocation: '/',
+    // initialLocation: '/$lessonsScreen/Period',
     // initialLocation: '/$chaptersScreen',
     routes: [
       GoRoute(
