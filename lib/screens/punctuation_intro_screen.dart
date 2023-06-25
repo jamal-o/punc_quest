@@ -54,6 +54,7 @@ class PunctuationIntroScreen extends StatelessWidget {
                 itemCount: basic.length,
                 itemBuilder: (context, index) {
                   return Card(
+                    elevation: 1,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),

@@ -31,7 +31,9 @@ class _PuctQuestAppState extends State<PuctQuestApp> {
       child: Consumer<AppRouter>(
         builder: (context, value, child) {
           return MaterialApp.router(
-            theme: ThemeData(primarySwatch: Colors.deepPurple),
+            theme: ThemeData(
+                primarySwatch: Colors.deepPurple,
+                visualDensity: VisualDensity.adaptivePlatformDensity),
             debugShowCheckedModeBanner: false,
             title: 'PuctQuest',
             routerDelegate: _router.routerDelegate,
