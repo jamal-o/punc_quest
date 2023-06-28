@@ -63,16 +63,23 @@ class _LessonScreenState extends State<LessonScreen> {
           children: [
             Container(
               alignment: Alignment.center,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(8),
-                color: Colors.grey.withOpacity(0.2),
-              ),
-              padding: const EdgeInsets.all(16.0),
-              child: Text(
-                lessonIntro,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.normal,
+              child: Card(
+                elevation: 0.2,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+
+                // color: Theme.of(context).primaryColor.withOpacity(0.3),
+                color: Colors.white.withOpacity(0.5),
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    lessonIntro,
+                    style: const TextStyle(
+                      fontSize: 18,
+                      fontWeight: FontWeight.normal,
+                    ),
+                  ),
                 ),
               ),
             ),
@@ -101,7 +108,12 @@ class _LessonScreenState extends State<LessonScreen> {
               child: ListView.builder(
                 itemBuilder: (context, index) {
                   return Card(
-                    color: Colors.grey.withOpacity(0.2),
+                    elevation: 0.2,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    // color: Theme.of(context).primaryColor.withOpacity(0.3),
+                    color: Colors.white.withOpacity(0.75),
                     margin: EdgeInsets.symmetric(
                       vertical: 8,
                     ),
@@ -272,7 +284,7 @@ class _InteractiveExampleState extends State<InteractiveExample> {
               text: TextSpan(children: [
                 for (String val in _example.answer.split(' '))
                   TextSpan(
-                      text: val, style: const TextStyle(color: Colors.grey)),
+                      text: val, style: const TextStyle(color: Colors.white)),
               ]),
             ),
             ElevatedButton(

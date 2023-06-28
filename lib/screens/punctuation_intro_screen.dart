@@ -54,12 +54,12 @@ class PunctuationIntroScreen extends StatelessWidget {
                 itemCount: basic.length,
                 itemBuilder: (context, index) {
                   return Card(
-                    elevation: 1,
+                    elevation: 0.2,
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(15),
                     ),
                     // color: Theme.of(context).primaryColor.withOpacity(0.3),
-                    color: Colors.grey.withOpacity(0.2),
+                    color: Colors.white.withOpacity(0.75),
                     child: Padding(
                       padding: const EdgeInsets.all(12.0),
                       child: Column(
