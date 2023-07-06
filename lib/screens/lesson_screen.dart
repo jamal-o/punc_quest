@@ -233,14 +233,27 @@ class _InteractiveExampleState extends State<InteractiveExample> {
     ScaffoldMessenger.of(context).clearSnackBars();
     FocusScope.of(context).unfocus();
     if (answerIsCorrect) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('Your answer is correct🎉🎉🎉')),
+      var dialog = AlertDialog(
+        content: Text('Your answer is correct🎉🎉🎉'),
       );
+      showDialog(
+        context: context,
+        builder: (context) {
+          return dialog;
+        },
+      );
+
       return;
     }
 
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text('Your answer is incorrect 👀')),
+    var dialog = AlertDialog(
+      content: Text('Your answer is incorrect 👀'),
+    );
+    showDialog(
+      context: context,
+      builder: (context) {
+        return dialog;
+      },
     );
     answerTries++;
   }
@@ -268,6 +281,12 @@ class _InteractiveExampleState extends State<InteractiveExample> {
           autocorrect: false,
           maxLines: 4,
           minLines: 1,
+        ),
+        ElevatedButton(
+          onPressed: () {
+            answerTries = 0;
+          },
+          child: const Text('Reset'),
         ),
         ElevatedButton(
           onPressed: checkAnswer,
