@@ -2,17 +2,17 @@
 
 ## About Project
 
-<strong>Welcome to PuncQuest!</strong>
+**Welcome to PuncQuest!**
 Engage in an exciting journey to master punctuation rules through gamified learning.
 
-<strong>Why Learn Punctuation?</strong>
+**Why Learn Punctuation?**
 <ul>
   <li>Punctuation plays a crucial role in clear communication.</li>
   <li> Mastering punctuation enhances your writing skills and boosts your confidence.</li>
 </ul>
 
 
-<strong>Gamified Learning Experience</strong>
+**Gamified Learning Experience**
 Embark on an adventure where you'll navigate punctuation challenges, earn rewards, and unlock achievements. Immerse yourself in an interactive world that makes learning punctuation enjoyable.
 
 ## Table of Contents
@@ -25,11 +25,13 @@ Embark on an adventure where you'll navigate punctuation challenges, earn reward
 
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
+- [x] Add lessons on all punctuation marks
+- [ ] Improve the user experience
+  - [ ] Improve UI/UX
+  - [ ] Implement user login and saved progress
+- [ ] Implement Challenge mode
+- [ ] Implement Achievements & Leaderboard
+
    
 
 ## Contributing
